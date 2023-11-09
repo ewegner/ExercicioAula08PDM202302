@@ -11,13 +11,15 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebView;
 import android.widget.TextView;
 
 public class GPSActivity extends AppCompatActivity {
     private LocationManager locationManager;
     private TextView latitude, longitude, provedor;
-    private String urlBase = "https://maps.googleapis.com/maps/api/staticmap?size=400x400&sensor=true&markers=color:red|%s,%s";
+    private String urlGoogle = "https://maps.googleapis.com/maps/api/staticmap?size=400x400&sensor=true&markers=color:red|%s,%s";
+    private String urlBase = "https://maps.geoapify.com/v1/staticmap?style=osm-carto&width=600&height=400&center=lonlat:%s,%s&zoom=14&marker=lonlat:%s,%s;color:%s;size:medium&apiKey=1df0d4445a654491b8fba9982696b65a";
     private WebView map;
 
     @Override
@@ -59,8 +61,11 @@ public class GPSActivity extends AppCompatActivity {
             provedor.setText(location.getProvider());
             latitude.setText(latitudeStr);
             longitude.setText(longitudeStr);
-
-            String url = String.format(urlBase, latitudeStr, longitudeStr);
+            Log.d("provedor", provedor.toString());
+            Log.d("latitude", latitudeStr);
+            Log.d("longitude", longitudeStr);
+            String url = String.format(urlBase, longitudeStr, latitudeStr, longitudeStr, latitudeStr, "%23ff0000");
+            Log.d("urlmap", url);
             map.loadUrl(url);
         }
         @Override
