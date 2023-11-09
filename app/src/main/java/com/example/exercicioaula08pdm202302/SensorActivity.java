@@ -2,11 +2,14 @@ package com.example.exercicioaula08pdm202302;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class SensorActivity extends AppCompatActivity implements SensorEventListener {
@@ -68,6 +71,14 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
 
         if (sensorEvent.sensor.getType() == Sensor.TYPE_PROXIMITY) {
             xViewP.setText("Proximity: " + sensorEvent.values[0]);
+        }
+
+        int orientation = getResources().getConfiguration().orientation;
+        LinearLayout layout = findViewById(R.id.layoutSensor);
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            layout.setBackgroundColor(Color.parseColor("#00FF00"));
+        } else {
+            layout.setBackgroundColor(Color.parseColor("#0000FF"));
         }
     }
 
